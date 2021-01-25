@@ -9,8 +9,23 @@ const UserContext = React.createContext({
   setError: () => {},
   clearError: () => {},
   setUser: () => {},
-  processLogin: () => {},
-  processLogout: () => {},
+  handleLogin: () => {},
+  handleLogout: () => {},
+  language: null,
+  words: [],
+  nextWord: null,
+  response: null,
+  guess: null,
+  totalScore: 0,
+  setGuess: () => {},
+  setResponse: () => {},
+  setError: () => {},
+  clearError: () => {},
+  setUser: () => {},
+  setLanguage: () => {},
+  setWords: () => {},
+  setNextWord: () => {},
+  setTotalScore: () => {},
 })
 
 export default UserContext
@@ -18,7 +33,18 @@ export default UserContext
 export class UserProvider extends Component {
   constructor(props) {
     super(props)
-    const state = { user: {}, error: null }
+    const state = {
+      user: {},
+      error: null,
+      language: null,
+      words: [],
+      nextWord: null,
+      totalScore: 0,
+      currWord: null,
+      attempt: null,
+      response: null,
+      feedback: null,
+    }
 
     const jwtPayload = TokenService.parseAuthToken()
 
@@ -29,7 +55,7 @@ export class UserProvider extends Component {
         username: jwtPayload.sub,
       }
 
-    this.state = state;
+    this.state = state
     IdleService.setIdleCallback(this.logoutBecauseIdle)
   }
 
@@ -46,21 +72,17 @@ export class UserProvider extends Component {
     IdleService.unRegisterIdleResets()
     TokenService.clearCallbackBeforeExpiry()
   }
-
-  setError = error => {
+  setError = (error) => {
     console.error(error)
     this.setState({ error })
   }
-
   clearError = () => {
     this.setState({ error: null })
   }
-
-  setUser = user => {
+  setUser = (user) => {
     this.setState({ user })
   }
-
-  processLogin = authToken => {
+  handleLogin = (authToken) => {
     TokenService.saveAuthToken(authToken)
     const jwtPayload = TokenService.parseAuthToken()
     this.setUser({
@@ -73,32 +95,50 @@ export class UserProvider extends Component {
       this.fetchRefreshToken()
     })
   }
-
-  processLogout = () => {
+  handleLogout = () => {
     TokenService.clearAuthToken()
     TokenService.clearCallbackBeforeExpiry()
     IdleService.unRegisterIdleResets()
     this.setUser({})
   }
-
   logoutBecauseIdle = () => {
     TokenService.clearAuthToken()
     TokenService.clearCallbackBeforeExpiry()
     IdleService.unRegisterIdleResets()
     this.setUser({ idle: true })
   }
-
   fetchRefreshToken = () => {
     AuthApiService.refreshToken()
-      .then(res => {
+      .then((res) => {
         TokenService.saveAuthToken(res.authToken)
         TokenService.queueCallbackBeforeExpiry(() => {
           this.fetchRefreshToken()
         })
       })
-      .catch(err => {
+      .catch((err) => {
         this.setError(err)
       })
+  }
+  setLanguage = (language) => {
+    this.setState({ language: language })
+  }
+  setWords = (words) => {
+    this.setState({ words: words })
+  }
+  setNextWord = (nextWord) => {
+    this.setState({ nextWord: nextWord })
+  }
+  setResponse = (response) => {
+    this.setState({ response: response })
+  }
+  setFeedback = (feedback) => {
+    this.setState({ feedback: feedback })
+  }
+  setGuess = (guess) => {
+    this.setState({ guess: guess })
+  }
+  setTotalScore = (score) => {
+    this.setState({ totalScore: score })
   }
 
   render() {
@@ -108,8 +148,25 @@ export class UserProvider extends Component {
       setError: this.setError,
       clearError: this.clearError,
       setUser: this.setUser,
-      processLogin: this.processLogin,
-      processLogout: this.processLogout,
+      handleLogin: this.handleLogin,
+      handleLogout: this.handleLogout,
+      language: this.state.language,
+      words: this.state.words,
+      nextWord: this.state.nextWord,
+      response: this.state.response,
+      guess: this.state.guess,
+      totalScore: this.state.totalScore,
+      setGuess: this.setGuess,
+      setResponse: this.setResponse,
+      setError: this.setError,
+      clearError: this.clearError,
+      setUser: this.setUser,
+      handleLogin: this.handleLogin,
+      handleLogout: this.handleLogout,
+      setLanguage: this.setLanguage,
+      setWords: this.setWords,
+      setNextWord: this.setNextWord,
+      setTotalScore: this.setTotalScore,
     }
     return (
       <UserContext.Provider value={value}>

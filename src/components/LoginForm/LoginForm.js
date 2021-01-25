@@ -18,17 +18,18 @@ class LoginForm extends Component {
   handleSubmit = ev => {
     ev.preventDefault()
     const { username, password } = ev.target
-
+    
     this.setState({ error: null })
-
+    
     AuthApiService.postLogin({
       username: username.value,
       password: password.value,
     })
-      .then(res => {
-        username.value = ''
-        password.value = ''
-        this.context.processLogin(res.authToken)
+    .then(res => {
+      username.value = ''
+      password.value = ''
+      console.log('AUTH')
+        this.context.handleLogin(res.authToken)
         this.props.onLoginSuccess()
       })
       .catch(res => {

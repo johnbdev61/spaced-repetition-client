@@ -7,7 +7,7 @@ const LanguageContext = React.createContext({
   setLanguage: () => {},
   setWords: () => {},
   setScore: () => {},
-  setDashboard: () => {},
+  setParams: () => {},
 })
 
 export default LanguageContext
@@ -22,7 +22,7 @@ export class LanguageProvider extends Component {
     }
   }
 
-  setDashboard = (params) => {
+  setParams = (params) => {
     this.setState({
       language: params.language,
       words: params.words,
@@ -46,9 +46,9 @@ export class LanguageProvider extends Component {
       totalScore: this.state.totalScore,
     }
     return (
-      <DataContext.Provider value={value}>
+      <LanguageContext.Provider value={value}>
         {this.props.children}
-      </DataContext.Provider>
+      </LanguageContext.Provider>
     )
   }
 }
