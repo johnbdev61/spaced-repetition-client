@@ -27,18 +27,18 @@ const TokenService = {
     else
       return undefined
   },
-  _getMsUntilExpiry(payload) {
-    return (payload.exp * 1000) - Date.now()
-  },
-  queueCallbackBeforeExpiry(callback) {
-    const msUntilExpiry = TokenService._getMsUntilExpiry(
-      TokenService.parseAuthToken()
-    )
-    _timeoutId = setTimeout(callback, msUntilExpiry - _TEN_SECONDS_IN_MS)
-  },
-  clearCallbackBeforeExpiry() {
-    clearTimeout(_timeoutId)
-  },
+  // _getMsUntilExpiry(payload) {
+  //   return (payload.exp * 1000) - Date.now()
+  // },
+  // queueCallbackBeforeExpiry(callback) {
+  //   const msUntilExpiry = TokenService._getMsUntilExpiry(
+  //     TokenService.parseAuthToken()
+  //   )
+  //   _timeoutId = setTimeout(callback, msUntilExpiry - _TEN_SECONDS_IN_MS)
+  // },
+  // clearCallbackBeforeExpiry() {
+  //   clearTimeout(_timeoutId)
+  // },
 }
 
 export default TokenService
