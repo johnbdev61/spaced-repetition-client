@@ -8,21 +8,21 @@ class LearningRoute extends Component {
   state = {
     score: 0,
     total: 0,
-    correctCount: '',
-    incorrectCount: '',
+    correct: '',
+    incorrect: '',
     answer: null,
+    translation: '',
     response: {},
     nextWord: null,
-    response: {},
-    userGuess: '',
+    guess: '',
     isClicked: false,
   }
 
   handleNext() {
     this.setState({
       isClicked: false,
-      correctCount: this.state.response.wordCorrectCount,
-      incorrectCount: this.state.response.wordIncorrectCount,
+      correct: this.state.response.wordCorrectCount,
+      incorrect: this.state.response.wordIncorrectCount,
       translation: '',
       answer: null,
       nextWord: {
@@ -45,8 +45,8 @@ class LearningRoute extends Component {
       this.context.setNextWord(json)
       this.setState({ nextWord: json })
       this.setState({
-        correctCount: json.wordCorrectCount,
-        incorrectCount: json.wordIncorrectCount,
+        correct: json.wordCorrectCount,
+        incorrect: json.wordIncorrectCount,
         total: json.totalScore,
         isClicked: false,
         score: null,
@@ -58,28 +58,28 @@ class LearningRoute extends Component {
 
   async submitForm(event) {
     event.preventDefault()
-    const guesses = event.target.guesses.value.toLowerCase().trim()
-    event.target.guesses.value = ''
-    this.setState({ guess: guesses })
-    this.context.setGuess(guesses)
+    const guess = event.target.guess.value.toLowerCase().trim()
+    event.target.guess.value = ''
+    this.setState({ guess: guess })
+    this.context.setGuess(guess)
 
     try {
-      const results = await fetch(`${config.API_ENDPOINT}/language/guess`, {
+      const res = await fetch(`${config.API_ENDPOINT}/language/guess`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
-          authorization: `Bearer ${TokenService.getAuthToken()}`,
+          authorization: `bearer ${TokenService.getAuthToken()}`,
         },
-        body: JSON.stringify({ guess: guesses }),
+        body: JSON.stringify({ guess: guess }),
       })
 
-      const answers = await answers.json()
-      this.context.setResponse(answers)
+      const json = await res.json()
+      this.context.setResponse(json)
       this.setState({
-        response: answers,
-        total: answers.totalScore,
+        response: json,
+        total: json.totalScore,
         isClicked: true,
-        translation: answers.answer,
+        translation: json.answer,
       })
     } catch (error) {
       this.setState({ error: error })
@@ -125,9 +125,7 @@ class LearningRoute extends Component {
           </div>
           {this.state.isClicked === false && (
             <fieldset>
-              <label htmlFor='guess'>
-                What does this translate to?
-              </label>
+              <label htmlFor='guess'>What does this translate to?</label>
               <input
                 name='guess'
                 id='learn-guess-input'

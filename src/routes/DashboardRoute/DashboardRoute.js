@@ -25,7 +25,7 @@ class DashboardRoute extends Component {
   renderWords() {
     console.log('CONTEXT', this.context)
     return this.context.words.map((word, i) => (
-      <li>
+      <li key={word.id}>
         <h4>{word.original}</h4> <span>Correct: {word.correct_count}</span>
         <br/>
         <span>Incorrect: {word.incorrect_count}</span>

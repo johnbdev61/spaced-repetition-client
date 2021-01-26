@@ -1,9 +1,6 @@
 import jwtDecode from 'jwt-decode'
 import config from '../config'
 
-let _timeoutId
-const _TEN_SECONDS_IN_MS = 10000
-
 const TokenService = {
   saveAuthToken(token) {
     window.localStorage.setItem(config.TOKEN_KEY, token)
