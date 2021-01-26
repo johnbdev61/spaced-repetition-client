@@ -18,7 +18,7 @@ class DashboardRoute extends Component {
         : res.json().then(params => {
           this.context.setLanguage(params.language.name)
           this.context.setWords(params.words)
-          this.context.setTotalScore(params.language.totalScore)
+          this.context.setTotalScore(params.language.total_score)
         })
       )
   }
@@ -44,7 +44,7 @@ class DashboardRoute extends Component {
             <a href="/learn">Start Learning French!</a>
             <h3>Here are your words to practice</h3>
             <ul>{this.renderWords()}</ul>
-            <p>Your correct answers: {this.context.total_score}</p>
+            <p>Your correct answers: {this.context.totalScore}</p>
           </div>
         )}
       </section>
