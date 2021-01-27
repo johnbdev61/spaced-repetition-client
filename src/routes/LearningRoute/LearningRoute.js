@@ -2,21 +2,11 @@ import React, { Component } from 'react'
 import config from '../../config'
 import UserContext from '../../contexts/UserContext'
 import TokenService from '../../services/token-service'
+import './LearningRoute.css'
 
 class LearningRoute extends Component {
   static contextType = UserContext
-  state = {
-    score: 0,
-    total: 0,
-    correct: '',
-    incorrect: '',
-    answer: null,
-    translation: '',
-    response: {},
-    nextWord: null,
-    guess: '',
-    isClicked: false,
-  }
+  state = {}
 
   handleNext() {
     this.setState({
@@ -100,50 +90,56 @@ class LearningRoute extends Component {
 
   render() {
     //TODO: REVISE The JSX
+    console.log('ANSWER', this.state.answer)
     return (
-      <div>
+      <div className='center-content'>
         <form onSubmit={(event) => this.submitForm(event, this.context)}>
-          {this.state.answer == null && <h2>Translate the word:</h2>}
+          {this.state.answer == null && (
+            <h2 className='translate'>
+              Translate the word{' '}
+              {this.state.isClicked === false && this.state.nextWord
+                ? this.state.nextWord.nextWord
+                : null}
+            </h2>
+          )}
           {this.state.answer === 'correct' && (
             <div className='answer-response'>
               <h2>Your answer was correct!</h2>
               <p>
-                The correct answer was {this.state.translation}, for the
-                translation of {this.state.nextWord.nextWord}, and you chose{' '}
-                {this.state.guess}.
+                The correct translation of the word {this.state.nextWord.nextWord}{' '}is{' '}
+                {this.state.translation}, and you chose {this.state.guess}
+                .
               </p>
             </div>
           )}
-          <span className='word'>
-            {this.state.isClicked === false && this.state.nextWord
-              ? this.state.nextWord.nextWord
-              : null}
-          </span>
-          <div className='score'>
-            {' '}
-            <p>Your total score is: {this.state.total}</p>
-          </div>
           {this.state.isClicked === false && (
-            <fieldset>
-              <label htmlFor='guess'>What does this translate to?</label>
+            <div>
               <input
                 name='guess'
                 id='learn-guess-input'
                 type='text'
+                placeholder='Enter Translation'
                 required
               ></input>
               {this.state.isClicked === false && (
                 <button type='submit'>Submit Answer</button>
               )}
-            </fieldset>
+            </div>
           )}
 
-          <p>You have translated this correctly {this.state.correct} times!</p>
           <p>
-            You have not translated this correctly {this.state.incorrect} times.
+            You have translated this word correctly {this.state.correct} times.
           </p>
+          <p>
+            You have not translated this word correctly {this.state.incorrect}{' '}
+            times.
+          </p>
+          <h3 className='score'>
+            {' '}
+            <p>Your total score is: {this.state.total}</p>
+          </h3>
         </form>
-        {this.state.answer !== null && (
+        {!!this.state.answer && (
           <button onClick={() => this.handleNext()}>On to the next!</button>
         )}
       </div>

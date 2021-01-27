@@ -1,7 +1,5 @@
-.center {
-  margin: auto;
-  width: 30%;
-  padding: 10px;
+.center-login {
+  text-align: center;
 }
 
 Input {

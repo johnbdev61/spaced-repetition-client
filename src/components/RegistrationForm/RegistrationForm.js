@@ -48,6 +48,7 @@ class RegistrationForm extends Component {
               Name
               <Required />
             </Label>
+            <br />
             <Input
               ref={this.firstInput}
               id='registration-name-input'
@@ -60,6 +61,7 @@ class RegistrationForm extends Component {
               Username
               <Required />
             </Label>
+            <br />
             <Input id='registration-username-input' name='username' required />
           </div>
           <div>
@@ -67,6 +69,7 @@ class RegistrationForm extends Component {
               Password
               <Required />
             </Label>
+            <br />
             <Input
               id='registration-password-input'
               name='password'
@@ -76,8 +79,7 @@ class RegistrationForm extends Component {
           </div>
         </div>
         <footer className='center-footer'>
-          <Button type='submit'>Sign up</Button>{' '}
-          <br/>
+          <Button className='btn' type='submit'>Sign up</Button> <br />
           <Link to='/login'>Already have an account?</Link>
         </footer>
       </form>

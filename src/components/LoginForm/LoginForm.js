@@ -52,32 +52,34 @@ class LoginForm extends Component {
         <div role='alert'>
           {error && <p>{error}</p>}
         </div>
-        <div className='center'>
-          <Label htmlFor='login-username-input'>
-            Username
-          </Label>
-          <Input
-            ref={this.firstInput}
-            id='login-username-input'
-            name='username'
-            required
-          />
-        </div>
-        <div className='center'>
-          <Label htmlFor='login-password-input'>
-            Password
-          </Label>
-          <Input
-            id='login-password-input'
-            name='password'
-            type='password'
-            required
-          />
-        </div>
-        <div className='btn'>          
-          <Button type='submit'>
-            Login
-          </Button>
+        <div className='center-login'>          
+          <div>
+            <Label htmlFor='login-username-input'>
+              Username
+            </Label><br/>
+            <Input
+              ref={this.firstInput}
+              id='login-username-input'
+              name='username'
+              required
+            />
+          </div>
+          <div>
+            <Label htmlFor='login-password-input'>
+              Password
+            </Label><br/>
+            <Input
+              id='login-password-input'
+              name='password'
+              type='password'
+              required
+            />
+          </div>
+          <div className='btn'>          
+            <Button type='submit'>
+              Login
+            </Button>
+          </div>
         </div>
       </form>
     )
