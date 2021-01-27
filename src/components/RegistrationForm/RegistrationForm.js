@@ -40,49 +40,44 @@ class RegistrationForm extends Component {
   render() {
     const { error } = this.state
     return (
-      <form
-        onSubmit={this.handleSubmit}
-      >
-        <div role='alert'>
-          {error && <p>{error}</p>}
+      <form onSubmit={this.handleSubmit}>
+        <div role='alert'>{error && <p>{error}</p>}</div>
+        <div className='center-register'>
+          <div>
+            <Label htmlFor='registration-name-input'>
+              Name
+              <Required />
+            </Label>
+            <Input
+              ref={this.firstInput}
+              id='registration-name-input'
+              name='name'
+              required
+            />
+          </div>
+          <div>
+            <Label htmlFor='registration-username-input'>
+              Username
+              <Required />
+            </Label>
+            <Input id='registration-username-input' name='username' required />
+          </div>
+          <div>
+            <Label htmlFor='registration-password-input'>
+              Password
+              <Required />
+            </Label>
+            <Input
+              id='registration-password-input'
+              name='password'
+              type='password'
+              required
+            />
+          </div>
         </div>
-        <div>
-          <Label htmlFor='registration-name-input'>
-            Enter your name<Required />
-          </Label>
-          <Input
-            ref={this.firstInput}
-            id='registration-name-input'
-            name='name'
-            required
-          />
-        </div>
-        <div>
-          <Label htmlFor='registration-username-input'>
-            Choose a username<Required />
-          </Label>
-          <Input
-            id='registration-username-input'
-            name='username'
-            required
-          />
-        </div>
-        <div>
-          <Label htmlFor='registration-password-input'>
-            Choose a password<Required />
-          </Label>
-          <Input
-            id='registration-password-input'
-            name='password'
-            type='password'
-            required
-          />
-        </div>
-        <footer>
-          <Button type='submit'>
-            Sign up
-          </Button>
-          {' '}
+        <footer className='center-footer'>
+          <Button type='submit'>Sign up</Button>{' '}
+          <br/>
           <Link to='/login'>Already have an account?</Link>
         </footer>
       </form>

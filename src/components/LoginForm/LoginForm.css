@@ -1,0 +1,14 @@
+.center {
+  margin: auto;
+  width: 30%;
+  padding: 10px;
+}
+
+Input {
+  margin-top: 5px;
+}
+
+.btn {
+  text-align: center;
+  margin-top: 15px;
+}

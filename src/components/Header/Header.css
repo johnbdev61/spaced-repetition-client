@@ -1,0 +1,24 @@
+.title {
+  font-family: 'Staatliches', cursive;
+  text-decoration: none;
+  color: black;
+}
+
+.header{
+  text-align: center;
+}
+
+.user {
+  font-family: 'Montserrat', sans-serif;
+  padding: 15px;
+}
+
+.name {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+nav {
+  text-align: center;
+}

@@ -1,0 +1,20 @@
+.word, .language, h3 {
+  font-family: 'Staatliches', cursive;
+}
+
+.language, .learn-link, .practice, .answer-total {
+  text-align: center;
+}
+
+ul {
+  text-align: center;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.score, p, .learn {
+  font-family: 'Montserrat', snas-serif;
+}

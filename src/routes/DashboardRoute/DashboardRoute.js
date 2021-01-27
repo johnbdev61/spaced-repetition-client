@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import UserContext from '../../contexts/UserContext'
 import Token from '../../services/token-service'
 import config from '../../config'
+import './DashboardRoute.css'
 
 class DashboardRoute extends Component {
   static contextType = UserContext
@@ -26,9 +27,10 @@ class DashboardRoute extends Component {
     console.log('CONTEXT', this.context)
     return this.context.words.map((word, i) => (
       <li key={word.id}>
-        <h4>{word.original}</h4> <span>Correct: {word.correct_count}</span>
-        <br/>
-        <span>Incorrect: {word.incorrect_count}</span>
+        <h4 className='word'>{word.original}</h4>{' '}
+        <span className='score'>Correct: {word.correct_count}</span>
+        <br />
+        <span className='score'>Incorrect: {word.incorrect_count}</span>
       </li>
     ))
   }
@@ -40,11 +42,13 @@ class DashboardRoute extends Component {
           <p>Sorry! There are no words!</p>
         ) : (
           <div>
-            <h2>{this.context.language}</h2>
-            <a href="/learn">Start Learning French!</a>
-            <h3>Here are your words to practice</h3>
+            <h2 className='language'>French</h2>
+            <div className='learn-link'>              
+              <a className='learn' href="/learn">Start Learning French!</a>
+            </div>
+            <h3 className='practice'>Here are your words to practice</h3>
             <ul>{this.renderWords()}</ul>
-            <p>Your correct answers: {this.context.totalScore}</p>
+            <p className='answer-total'><b>Number of Correct Answers: </b>{this.context.totalScore}</p>
           </div>
         )}
       </section>

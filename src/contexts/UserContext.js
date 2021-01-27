@@ -38,7 +38,7 @@ export class UserProvider extends Component {
       nextWord: null,
       totalScore: 0,
       currWord: null,
-      attempt: null,
+      guess: null,
       response: null,
       feedback: null,
     }

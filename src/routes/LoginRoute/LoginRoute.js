@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import LoginForm from '../../components/LoginForm/LoginForm'
+import './LoginRoute.css'
 
 class LoginRoute extends Component {
   static defaultProps = {
@@ -18,7 +19,7 @@ class LoginRoute extends Component {
   render() {
     return (
       <section>
-        <h2>Login</h2>
+        <h2 className='login'>Login</h2>
         <LoginForm
           onLoginSuccess={this.handleLoginSuccess}
         />
