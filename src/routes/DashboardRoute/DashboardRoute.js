@@ -43,12 +43,12 @@ class DashboardRoute extends Component {
         ) : (
           <div>
             <h2 className='language'>French</h2>
+            <h3 className='practice'>Here are your words to practice</h3>
+            <ul className='words-card'>{this.renderWords()}</ul>
             <div className='learn-link'>              
               <a className='learn' href="/learn">Start Learning French!</a>
             </div>
-            <h3 className='practice'>Here are your words to practice</h3>
-            <ul>{this.renderWords()}</ul>
-            <p className='answer-total'><b>Number of Correct Answers: </b>{this.context.totalScore}</p>
+            <p className='answer-total'><b>Number of Correct Answers: {this.context.totalScore}</b></p>
           </div>
         )}
       </section>

@@ -92,7 +92,7 @@ class LearningRoute extends Component {
     //TODO: REVISE The JSX
     console.log('ANSWER', this.state.answer)
     return (
-      <div className='center-content'>
+      <div className='center-content words-card'>
         <form onSubmit={(event) => this.submitForm(event, this.context)}>
           {this.state.answer == null && (
             <h2 className='translate'>
