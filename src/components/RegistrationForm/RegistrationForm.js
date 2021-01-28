@@ -80,10 +80,10 @@ class RegistrationForm extends Component {
             />
           </div>
         </div>
-        <h2 className='center-footer'>
+        <p className='center-footer'>
           <Button className='btn' type='submit'>Sign up</Button> <br />
           <Link to='/login'>Already have an account?</Link>
-        </h2>
+        </p>
       </form>
     )
   }
