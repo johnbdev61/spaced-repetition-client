@@ -50,7 +50,7 @@ class Header extends Component {
             Spaced repetition
           </Link>
         </h1>
-        <p>
+        <p className='practice words-card'>
           Practice learning French with the spaced reptition revision technique.
         </p>
         {TokenService.hasAuthToken()

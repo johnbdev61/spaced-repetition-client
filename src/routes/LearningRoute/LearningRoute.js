@@ -123,8 +123,10 @@ class LearningRoute extends Component {
           )}
           {this.state.isClicked === false && (
             <div>
+              <label htmlFor='learn-guess-input'>Translate</label>
               <input
                 name='guess'
+                aria-label='learn-guess-input'
                 id='learn-guess-input'
                 type='text'
                 placeholder='Enter Translation'

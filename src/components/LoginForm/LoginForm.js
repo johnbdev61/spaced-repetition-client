@@ -59,6 +59,7 @@ class LoginForm extends Component {
             </Label><br/>
             <Input
               ref={this.firstInput}
+              aria-label='login-username-input'
               id='login-username-input'
               name='username'
               required
@@ -70,6 +71,7 @@ class LoginForm extends Component {
             </Label><br/>
             <Input
               id='login-password-input'
+              aria-label='login-password-input'
               name='password'
               type='password'
               required
