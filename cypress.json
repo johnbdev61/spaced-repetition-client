@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:3000",
+  "baseUrl": "spaced-repetition-client-plum.vercel.app",
   "env": {
     "API_ENDPOINT": "https://french-spaced-rep.herokuapp.com/api",
     "TOKEN_KEY": "blogful-client-auth-token"
