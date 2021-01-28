@@ -51,7 +51,7 @@ class Header extends Component {
           </Link>
         </h1>
         <p className='practice words-card'>
-          Practice learning French with the spaced reptition revision technique.
+          Practice learning French with the spaced repetition revision technique.
         </p>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
