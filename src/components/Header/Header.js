@@ -15,11 +15,14 @@ class Header extends Component {
     return (
       <div>
         <div className='name'>
-          <span><b>Logged in as </b>{this.context.user.name}</span>
+          <span>
+            <b>Logged in as </b>
+            {this.context.user.name}
+          </span>
         </div>
         <nav>
           <Link className='user' onClick={this.handleLogoutClick} to='/login'>
-            Logout
+            <b>Logout</b>
           </Link>
         </nav>
       </div>
@@ -30,11 +33,10 @@ class Header extends Component {
     return (
       <nav>
         <Link className='user' to='/login'>
-          Login
-        </Link>
-        {' '}
+          <b>Login</b>
+        </Link>{' '}
         <Link className='user' to='/register'>
-          Sign up
+          <b>Sign up</b>
         </Link>
       </nav>
     )
@@ -48,6 +50,9 @@ class Header extends Component {
             Spaced repetition
           </Link>
         </h1>
+        <p>
+          Practice learning French with the spaced reptition revision technique.
+        </p>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
           : this.renderLoginLink()}

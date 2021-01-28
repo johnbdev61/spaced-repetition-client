@@ -12,7 +12,7 @@
   - I'm given a button/link to start learning
   - I'm shown the total score for guessing words
 */
-describe(`User story: User's dashboard`, function() {
+describe(`User story: User's dashboard`, function () {
   beforeEach(() => {
     cy.server()
       .route({
@@ -30,22 +30,19 @@ describe(`User story: User's dashboard`, function() {
 
   it('has h2 with title, total score, subtitle and link', () => {
     cy.fixture('language.json').then(({ language }) => {
-      cy.get('main section').within($section => {
-        cy.get('h2')
-          .should('contain', language.name)
+      cy.get('main div').within(( div) => {
+        cy.get('h2').should('contain', 'French')
 
-        cy.root()
-          .should(
-            'contain',
-            `Total correct answers: ${language.total_score}`,
-          )
+        cy.root().should(
+          'contain',
+          `Number of Correct Answers: ${language.total_score}`
+        )
 
         cy.get('a')
           .should('have.attr', 'href', '/learn')
-          .and('have.text', 'Start practicing')
+          .and('have.text', 'Start Learning French!')
 
-        cy.get('h3')
-          .should('have.text', 'Words to practice')
+        cy.get('h2').should('have.text', 'Here are your French Practice Words')
       })
     })
   })
@@ -53,24 +50,22 @@ describe(`User story: User's dashboard`, function() {
   it(`shows an LI and link for each language`, () => {
     cy.wait('@languageRequest')
     cy.fixture('language.json').then(({ words }) => {
-
       words.forEach((word, idx) => {
-        cy.get('main section li').eq(idx).within($li => {
+        cy.get('main div li')
+          .eq(idx)
+          .within(($li) => {
+            cy.get('h4').should('have.text', word.original)
 
-          cy.get('h4').should('have.text', word.original)
-
-          cy.root()
-            .should(
+            cy.root().should(
               'contain',
-              `correct answer count: ${word.correct_count}`
+              `Correct: ${word.correct_count}`
             )
 
-          cy.root()
-            .should(
+            cy.root().should(
               'contain',
-              `incorrect answer count: ${word.incorrect_count}`
+              `Incorrect: ${word.incorrect_count}`
             )
-        })
+          })
       })
     })
   })

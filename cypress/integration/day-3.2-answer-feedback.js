@@ -13,7 +13,7 @@
   - I'm told how many times I was correct or incorrect for the word
   - I can see a button/link to try another word
 */
-describe(`User story: Answer feedback`, function() {
+describe(`User story: Answer feedback`, function () {
   beforeEach(() => {
     cy.server()
       .route({
@@ -32,8 +32,7 @@ describe(`User story: Answer feedback`, function() {
         url: `/api/language/guess`,
         status: 200,
         response: 'fixture:language-guess-generic.json',
-      })
-        .as('postListGuess')
+      }).as('postListGuess')
     })
 
     it(`submits my answer typed in the form`, () => {
@@ -42,16 +41,14 @@ describe(`User story: Answer feedback`, function() {
       cy.login().visit(`/learn`)
       cy.wait('@languageHeadRequest')
 
-      cy.get('main form').within($form => {
-        cy.get('input#learn-guess-input')
-          .type(guess)
+      cy.get('main form').within(($form) => {
+        cy.get('input#learn-guess-input').type(guess)
 
         cy.get('button').click()
 
-        cy.wait('@postListGuess')
-          .then(xhr => {
-            expect(xhr.request.body).to.eql({ guess })
-          })
+        cy.wait('@postListGuess').then((xhr) => {
+          expect(xhr.request.body).to.eql({ guess })
+        })
       })
     })
   })
@@ -65,8 +62,7 @@ describe(`User story: Answer feedback`, function() {
         url: `/api/language/guess`,
         status: 200,
         response: 'fixture:language-guess-incorrect.json',
-      })
-        .as('postListGuessIncorrect')
+      }).as('postListGuessIncorrect')
 
       cy.login().visit(`/learn`).wait('@languageHeadRequest')
       cy.get('input#learn-guess-input').type(guess)
@@ -77,34 +73,26 @@ describe(`User story: Answer feedback`, function() {
       //  cypress fixtures has buggy behaviour, this works around it o_O
       const fixtures = []
       Cypress.Promise.all([
-        cy.fixture('language-head.json')
-          .then(langHeadFx => fixtures.push(langHeadFx)),
-        cy.fixture('language-guess-incorrect.json')
-          .then(langGuessIncFx => fixtures.push(langGuessIncFx)),
+        cy
+          .fixture('language-head.json')
+          .then((langHeadFx) => fixtures.push(langHeadFx)),
+        cy
+          .fixture('language-guess-incorrect.json')
+          .then((langGuessIncFx) => fixtures.push(langGuessIncFx)),
       ]).then(() => {
         const [languageHeadFixture, incorrectFixture] = fixtures
 
-        cy.get('main').within($main => {
-          cy.get('.DisplayScore p')
-            .should(
-              'have.text',
-              `Your total score is: ${incorrectFixture.totalScore}`,
-            )
-          cy.get('h2')
-            .should(
-              'have.text',
-              `Good try, but not quite right :(`,
-            )
-          cy.get('.DisplayFeedback p')
-            .should(
-              'have.text',
-              `The correct translation for ${languageHeadFixture.nextWord} was ${incorrectFixture.answer} and you chose ${guess}!`,
-            )
-          cy.get('button')
-            .should(
-              'have.text',
-              `Try another word!`,
-            )
+        cy.get('main form').within(($form) => {
+          cy.get('h3').should(
+            'have.text',
+            `Your total score is: ${incorrectFixture.totalScore}`
+          )
+          cy.get('h2').should('have.text', `Your answer was incorrect.`)
+          cy.get('p').should(
+            'have.text',
+            `The correct translation of the word Testnextword is test-answer-from-incorrect-guess, and you chose test-guess-incorrect.You have translated this word correctly 222 times.You have translated this word incorrectly 334 times.`
+          )
+          cy.get('button').should('have.text', `Next Word`)
         })
       })
     })
@@ -119,8 +107,7 @@ describe(`User story: Answer feedback`, function() {
         url: `/api/language/guess`,
         status: 200,
         response: 'fixture:language-guess-correct.json',
-      })
-        .as('postListGuessCorrect')
+      }).as('postListGuessCorrect')
 
       cy.login().visit(`/learn`).wait('@languageHeadRequest')
       cy.get('input#learn-guess-input').type(guess)
@@ -131,34 +118,24 @@ describe(`User story: Answer feedback`, function() {
       //  cypress fixtures has buggy behaviour, this works around it o_O
       const fixtures = []
       Cypress.Promise.all([
-        cy.fixture('language-head.json')
-          .then(fx => fixtures.push(fx)),
-        cy.fixture('language-guess-correct.json')
-          .then(fx => fixtures.push(fx)),
+        cy.fixture('language-head.json').then((fx) => fixtures.push(fx)),
+        cy
+          .fixture('language-guess-correct.json')
+          .then((fx) => fixtures.push(fx)),
       ]).then(() => {
         const [languageHeadFixture, incorrectFixture] = fixtures
 
-        cy.get('main').within($main => {
-          cy.get('.DisplayScore p')
-            .should(
-              'have.text',
-              `Your total score is: ${incorrectFixture.totalScore}`,
-            )
-          cy.get('h2')
-            .should(
-              'have.text',
-              `You were correct! :D`,
-            )
-          cy.get('.DisplayFeedback p')
-            .should(
-              'have.text',
-              `The correct translation for ${languageHeadFixture.nextWord} was ${incorrectFixture.answer} and you chose ${guess}!`,
-            )
-          cy.get('button')
-            .should(
-              'have.text',
-              `Try another word!`,
-            )
+        cy.get('main form').within(($form) => {
+          cy.get('h3').should(
+            'have.text',
+            `Your total score is: ${incorrectFixture.totalScore}`
+          )
+          cy.get('h2').should('have.text', `Your answer was correct!`)
+          cy.get('p').should(
+            'have.text',
+            `The correct translation of the word Testnextword is test-answer-from-correct-guess, and you chose test-guess-incorrect.You have translated this word correctly 223 times.You have translated this word incorrectly 333 times.`
+          )
+          cy.get('button').should('have.text', `Next Word`)
         })
       })
     })

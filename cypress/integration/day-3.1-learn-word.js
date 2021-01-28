@@ -11,7 +11,7 @@
   - I'm shown the number of correct and incorrect guesses for that word
   - I'm presented an input to type my answer/guess for the current words translation
 */
-describe(`User story: Presented with word`, function() {
+describe(`User story: Presented with word`, function () {
   beforeEach(() => {
     cy.server()
       .route({
@@ -24,59 +24,49 @@ describe(`User story: Presented with word`, function() {
   })
 
   it('displays the current score and h2 with next word', () => {
-    cy.login()
-      .visit(`/learn`)
-      .wait('@languageHeadRequest')
+    cy.login().visit(`/learn`).wait('@languageHeadRequest')
 
-    cy.fixture('language-head.json')
-      .then(languageHeadFixture => {
-        cy.get('main').within($main => {
-          cy.get('h2')
-            .should('have.text', 'Translate the word:')
-            .siblings('span')
-            .should('have.text', languageHeadFixture.nextWord)
-        })
-        cy.get('p').eq(0)
-          .should(
-            'have.text',
-            `Your total score is: ${languageHeadFixture.totalScore}`,
-          )
+    cy.fixture('language-head.json').then((languageHeadFixture) => {
+      cy.get('main').within(($main) => {
+        cy.get('h2')
+          .should('have.text', 'Translate the word Testnextword')
       })
+      cy.get('h3')
+        .eq(0)
+        .should(
+          'have.text',
+          `Your total score is: ${languageHeadFixture.totalScore}`
+        )
+    })
   })
 
   it(`displays a form for submitting the next guess`, () => {
-    cy.login()
-      .visit(`/learn`)
-      .wait('@languageHeadRequest')
+    cy.login().visit(`/learn`).wait('@languageHeadRequest')
 
-    cy.get('main form').within($form => {
-      cy.get('label[for=learn-guess-input]')
-        .should('have.text', `What's the translation for this word?`)
+    cy.get('main form').within(($form) => {
+      cy.get('h2').should('have.text', `Translate the word Testnextword`)
 
       cy.get('input#learn-guess-input')
         .should('have.attr', 'type', 'text')
         .and('have.attr', 'required', 'required')
 
-      cy.get('button[type=submit]')
-        .should('have.text', 'Submit your answer')
+      cy.get('button[type=submit]').should('have.text', 'Submit Answer')
     })
   })
 
   it(`displays the correct and incorrect count for this word`, () => {
-    cy.login()
-      .visit(`/learn`)
-      .wait('@languageHeadRequest')
+    cy.login().visit(`/learn`).wait('@languageHeadRequest')
 
-    cy.fixture('language-head.json').then(languageHeadFixture => {
-      cy.get('main').within($main => {
+    cy.fixture('language-head.json').then((languageHeadFixture) => {
+      cy.get('p').within(($form) => {
         cy.root()
           .should(
             'contain',
-            `You have answered this word correctly ${languageHeadFixture.wordCorrectCount} times.`,
+            `You have translated this word correctly ${languageHeadFixture.wordCorrectCount} times.`
           )
           .and(
             'contain',
-            `You have answered this word incorrectly ${languageHeadFixture.wordIncorrectCount} times.`,
+            `You have translated this word incorrectly ${languageHeadFixture.wordIncorrectCount} times.`
           )
       })
     })

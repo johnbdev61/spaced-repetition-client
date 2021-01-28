@@ -106,9 +106,18 @@ class LearningRoute extends Component {
             <div className='answer-response'>
               <h2>Your answer was correct!</h2>
               <p>
-                The correct translation of the word {this.state.nextWord.nextWord}{' '}is{' '}
-                {this.state.translation}, and you chose {this.state.guess}
-                .
+                The correct translation of the word{' '}
+                {this.state.nextWord.nextWord} is {this.state.translation}, and
+                you chose {this.state.guess}.
+              </p>
+            </div>
+          )}
+          {this.state.answer === 'incorrect' && (
+            <div className='answer-response'>
+              <h2>Your answer was incorrect.</h2>
+              <p>
+                The correct translation of the word {this.state.nextWord.nextWord} is {this.state.translation}, and
+                you chose {this.state.guess}.
               </p>
             </div>
           )}
@@ -126,22 +135,18 @@ class LearningRoute extends Component {
               )}
             </div>
           )}
-
           <p>
             You have translated this word correctly {this.state.correct} times.
           </p>
           <p>
-            You have not translated this word correctly {this.state.incorrect}{' '}
+            You have translated this word incorrectly {this.state.incorrect}{' '}
             times.
           </p>
-          <h3 className='score'>
-            {' '}
-            <p>Your total score is: {this.state.total}</p>
-          </h3>
-        </form>
+          <h3 className='score'>Your total score is: {this.state.total}</h3>
         {!!this.state.answer && (
-          <button onClick={() => this.handleNext()}>On to the next!</button>
+          <button onClick={() => this.handleNext()}>Next Word</button>
         )}
+        </form>
       </div>
     )
   }
